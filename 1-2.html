@@ -38,7 +38,19 @@
 
 	<ul id="app-7">
 		<todo-item v-for="todo in todos" v-bind:todo="todo"></todo-item>
+		<li>{{ message }}</li>
+		<input type="text" v-model="message">
+		<button v-on:click="addItem">add item</button>
 	</ul>	
+
+	<!-- <ul>
+		<todo-item v-bind:todo="todo"></todo-item>
+	</ul> -->
+
+	<div id="example">
+		<p>Original message: {{ message }}</p>
+		<p>Computed reversed message: {{ reversedMessage }}</p>
+	</div>
 
 	<script type="text/javascript">
 	//通过新建vue实例来实现绑定
@@ -129,9 +141,30 @@
 					{text: 'todo1'},
 					{text: 'todo2'},
 					{text: 'todo3'}
-				]
+				],
+				message: ''
+			},
+			methods: {
+				addItem: function() {
+					var newItem = {};
+					newItem.text = this.message;
+					this.todos.push(newItem);
+					this.message = '';
+				}
 			}
 		})
+
+		var vmEp = new Vue({
+			el: '#example',
+			data: {
+				message: 'Hello World!'
+			},
+			computed: {
+				reversedMessage: function() {
+					return this.message.split('').reverse().join('');
+				}
+			}
+		});
 
 
 		//可以通过操纵实例的属性对数据进行改写

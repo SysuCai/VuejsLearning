@@ -1,0 +1,7 @@
+新手向:Vue 2.0 的建议学习顺序:
+http://mp.weixin.qq.com/s?__biz=MzA5NTM2MTEzNw==&mid=2736710957&idx=1&sn=165b3ece2a4f4e9ab8925c982c6e431b&chksm=b6aac43381dd4d25081ee7b9e44844a7e8eb8196253e5b9a6603737f1a8ae8ce0776ae76d571&scene=4#wechat_redirect
+
+
+社区翻译的中文文档 （https://vuefe.cn/）
+
+

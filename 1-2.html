@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vuejs学习</title>
+	<script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+	<div id="app-1">
+		<p>{{ message }}</p>
+		<p>{{ message1 }}</p>
+		<p>{{ message2 }}</p>
+	</div>
+
+	<div id="app-2" v-bind:title="title">
+		<p>把指针悬浮在这句话上，可以看到消息</p>
+	</div>
+
+	<div id="app-3" v-if="seen" v-bind:title="title">
+		<p>{{ message }}</p>
+		<p>{{ message1 }}</p>
+	</div>
+
+	<div id="app-4" class="xx">
+		<li v-for="todo in todos">
+			{{ todo.text }}
+		</li>
+	</div>
+
+	<div id="app-5">
+		<p>{{ message }}</p>
+		<button v-on:click="reverseStr">click</button>
+	</div>
+
+	<div id="app-6">
+		<p>{{ message }}</p>
+		<input type="text" v-model="message">
+	</div>
+
+	<ul id="app-7">
+		<todo-item v-for="todo in todos" v-bind:todo="todo"></todo-item>
+	</ul>	
+
+	<script type="text/javascript">
+	//通过新建vue实例来实现绑定
+
+		var vueInstance1 = new Vue({
+			el: '#app-1',
+			data: {
+				message: 'Vue.js的核心是允许你使用简洁的模板语法来声明式地讲数据渲染进DOM的系统',
+				message1: '第一部分：简单的数据绑定',
+				message2: '响应式数据'
+			}
+		})
+
+		var vueInstance2 = new Vue({
+			el: '#app-2',
+			data: {
+				title: "第二部分元素属性绑定" + new Date()
+			}
+		});
+
+		var vueInstance3 = new Vue({
+			el: '#app-3',
+			data: {
+				seen: false,
+				message: '第三部分：通过v-if指令进行控制条件控制',
+				message1: '这里表示vue不但可以绑定数据，也可以操作结构',
+				title: '这里是通过v-bind指令进行dom元素属性绑定'
+			}
+		});
+
+		var vueInstance4 = new Vue({
+			el: '#app-4',
+			data: {
+				todos: [
+					{ text: '可以通过v-for指令来渲染一个列表' },
+					{ text: '这里的in操作符可能与js有所不同，in前面的第一操作符对应的不是元素下标index而是元素本身'}
+
+				]
+			}
+		})
+
+		var vueInstance5 = new Vue({
+			el: '#app-5',
+			data: {
+				message: 'Hello Vue.js!'
+			},
+			methods: {
+				reverseStr: function() {
+					this.message = this.message.split('').reverse().join('');
+				}
+			}
+		})
+
+		var vm5 = vueInstance5;
+		// vm5.message = 'Hello World!'  //vue实例代理data对象里所有属性
+		console.log(vm5.$el);	//vue实例暴露的属性和方法,以$开头$el,$data,$watch
+
+
+								// vm.$data === data // -> true
+								// vm.$el === document.getElementById('example') // -> true
+								// // $watch 是一个实例方法
+								// vm.$watch('a', function (newVal, oldVal) {
+								//   // 这个回调将在 `vm.a`  改变后调用
+								// })
+
+		vueInstance5.$watch('message', function(newVal, oldVal){
+			alert(oldVal);
+		});
+
+		var vueInstance6 = new Vue({
+			el: '#app-6',
+			data: {
+				message: '通过v-model指令可以对表单输入和应用状态的双向数据绑定'
+			}
+		})
+
+		//一个组件实际上是一个拥有预定义选项的vue实例
+		//参数 组件名称 组件模板
+		Vue.component('todo-item', {
+			props: ['todo'],
+			template: '<li>{{ todo.text }}</li>'
+		})
+
+		var vueInstance7 =new Vue({
+			el: '#app-7',
+			data: {
+				todos: [
+					{text: 'todo1'},
+					{text: 'todo2'},
+					{text: 'todo3'}
+				]
+			}
+		})
+
+
+		//可以通过操纵实例的属性对数据进行改写
+		// vueInstance1.message= '1'
+		// vueInstance4.todos.push({ text: 'new item'})
+	</script>
+</body>
+</html>
